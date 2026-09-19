@@ -18,7 +18,7 @@
 </head>
 <body>
 <h1>Glinto Privacy Policy</h1>
-<p class="meta">Effective date: August 17, 2026</p>
+<p class="meta">Effective date: September 23, 2026</p>
 
 <p>Glinto is a trading-card portfolio tracker. This policy explains what data the
 app handles and how. The short version: we store the collection data you create,
@@ -42,6 +42,14 @@ we don't run ads, and we don't sell or share your data with anyone.</p>
       value, used to draw your performance charts.</li>
 </ul>
 
+<h2>Crash reports</h2>
+<p>If the app crashes or hits an error, it sends a report to Sentry, our
+error-monitoring provider: the app version, device model, iOS version, and a
+technical trace of what failed. A small sample of sessions (about 1 in 10) also
+sends performance timings, such as how long a screen or request took. These
+reports contain no account details or collection data and are not linked to
+you. We use them only to find and fix bugs.</p>
+
 <h2>Camera</h2>
 <p>The card scanner uses your camera to read a card's name and number.
 <strong>All recognition happens on your device.</strong> Photos are never
@@ -58,7 +66,8 @@ account removes the token. We never send marketing notifications.</p>
 <h2>What we don't do</h2>
 <ul>
   <li>No advertising, and no advertising SDKs.</li>
-  <li>No third-party analytics or tracking SDKs.</li>
+  <li>No third-party analytics or tracking SDKs. The only third-party SDKs in
+      the app are Supabase (our database) and Sentry (crash reports, above).</li>
   <li>No selling, renting, or sharing of your personal data.</li>
   <li>No collection of your location, contacts, or photos.</li>
 </ul>
@@ -70,6 +79,7 @@ never see your payment details.</p>
 <h2>Where data lives</h2>
 <p>Your data is stored with Supabase (hosted on Amazon Web Services, US region),
 protected by row-level security so only your authenticated account can read it.
+Crash reports are processed by Sentry (Functional Software, Inc.) in the US.
 Market pricing data shown in the app is aggregate public sales data and is not
 tied to you.</p>
 
