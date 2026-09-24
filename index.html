@@ -2,119 +2,200 @@
 <html lang="en">
 <head>
 <meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>Glinto: what your trading cards are worth</title>
 <meta name="description" content="Track Pokémon, Magic, Yu-Gi-Oh!, One Piece, Lorcana and nine more games at current market prices, raw and graded. Free on iPhone.">
-<meta name="theme-color" content="#0B0F0E">
+<meta name="theme-color" content="#0A0E0D">
+<link rel="canonical" href="https://glintoapp.com/">
 <meta property="og:title" content="Glinto: what your trading cards are worth">
 <meta property="og:description" content="Current market prices for 14 trading card games, raw and graded. Free on iPhone.">
-<meta property="og:image" content="https://blitz774.github.io/glinto-legal/assets/01-portfolio.jpg">
+<meta property="og:image" content="https://glintoapp.com/assets/01-portfolio.jpg">
+<meta property="og:url" content="https://glintoapp.com/">
 <meta property="og:type" content="website">
+<meta name="twitter:card" content="summary_large_image">
 <link rel="icon" type="image/png" href="assets/favicon-64.png">
 <link rel="apple-touch-icon" href="assets/icon-256.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<script>document.documentElement.classList.add("js");</script>
 <style>
   :root {
-    --bg: #0B0F0E;
+    --bg: #0A0E0D;
+    --bg-raised: #0E1412;
     --surface: #141A18;
-    --line: rgba(242, 245, 244, 0.09);
+    --line: rgba(242, 245, 244, 0.08);
+    --line-strong: rgba(242, 245, 244, 0.15);
     --text: #F2F5F4;
     --muted: #A6B2AE;
     --faint: #75827E;
     --mint: #25B58C;
-    --mint-soft: rgba(37, 181, 140, 0.12);
+    --mint-hi: #4FD6AC;
     --gain: #35D67F;
-    --radius: 22px;
+    --loss: #FF6B61;
+    --label: #EAF0EE;
+    --label-ink: #0E1513;
     --gutter: clamp(16px, 5vw, 40px);
     --sans: -apple-system, BlinkMacSystemFont, "SF Pro Text", "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
     --display: -apple-system, BlinkMacSystemFont, "SF Pro Display", "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
-    --numbers: ui-rounded, "SF Pro Rounded", -apple-system, BlinkMacSystemFont, sans-serif;
+    --mono: "IBM Plex Mono", ui-monospace, "SF Mono", Menlo, monospace;
+    --ease: cubic-bezier(0.22, 1, 0.36, 1);
+    --phone-ratio: 0.46;   /* screenshot width / height (660 x 1435) */
   }
   * { box-sizing: border-box; }
-  html { -webkit-text-size-adjust: 100%; }
-  body {
-    margin: 0; background: var(--bg); color: var(--text);
-    font: 17px/1.55 var(--sans); -webkit-font-smoothing: antialiased;
-  }
-  a { color: var(--mint); text-decoration: none; }
+  html { -webkit-text-size-adjust: 100%; scroll-behavior: smooth; }
+  body { margin: 0; background: var(--bg); color: var(--text); font: 17px/1.55 var(--sans);
+         -webkit-font-smoothing: antialiased; overflow-x: clip; }
+  a { color: var(--mint-hi); text-decoration: none; }
   a:hover { text-decoration: underline; text-underline-offset: 3px; }
-  a:focus-visible, .pill:focus-visible { outline: 2px solid var(--mint); outline-offset: 3px; border-radius: 6px; }
+  :focus-visible { outline: 2px solid var(--mint-hi); outline-offset: 3px; border-radius: 6px; }
   img { display: block; max-width: 100%; height: auto; }
-  .wrap { max-width: 1080px; margin: 0 auto; padding: 0 var(--gutter); }
+  .wrap { max-width: 1120px; margin: 0 auto; padding: 0 var(--gutter); }
+  h2, h3 { text-wrap: balance; }
+  .eyebrow { font: 500 12px/1.2 var(--mono); letter-spacing: 0.14em; text-transform: uppercase; color: var(--mint-hi); margin: 0 0 18px; }
+  h2 { font-family: var(--display); font-weight: 700; font-size: clamp(30px, 4.2vw, 48px); line-height: 1.04;
+       letter-spacing: -0.03em; margin: 0 0 16px; max-width: 15ch; }
 
   /* Header */
-  header { border-bottom: 1px solid var(--line); }
-  .bar { display: flex; align-items: center; justify-content: space-between; height: 64px; }
-  .brand { display: flex; align-items: center; gap: 10px; color: var(--text); font-weight: 700; font-size: 18px; letter-spacing: -0.01em; }
+  header { position: sticky; top: 0; z-index: 20; background: var(--bg); border-bottom: 1px solid var(--line); }
+  .bar { display: flex; align-items: center; justify-content: space-between; height: 60px; }
+  .brand { display: flex; align-items: center; gap: 10px; color: var(--text); font-weight: 700; font-size: 17px; letter-spacing: -0.01em; }
   .brand:hover { text-decoration: none; }
-  .brand img { width: 30px; height: 30px; border-radius: 7px; }
-  nav { display: flex; gap: clamp(14px, 3vw, 28px); font-size: 15px; }
-  nav a { color: var(--muted); }
-  nav a:hover { color: var(--text); text-decoration: none; }
+  .brand img { width: 28px; height: 28px; border-radius: 7px; }
+  nav.top { display: flex; align-items: center; gap: clamp(16px, 3vw, 28px); font-size: 14px; }
+  nav.top a { color: var(--muted); }
+  nav.top a:hover { color: var(--text); text-decoration: none; }
 
   /* Hero */
-  .hero { display: grid; grid-template-columns: 1.05fr 0.95fr; gap: clamp(32px, 6vw, 72px); align-items: center;
-          padding: clamp(40px, 8vw, 96px) 0 clamp(48px, 8vw, 88px); }
-  .eyebrow { font-size: 13px; font-weight: 600; letter-spacing: 0.08em; text-transform: uppercase; color: var(--mint); margin: 0 0 18px; }
-  h1 { font-family: var(--display); font-size: clamp(40px, 7vw, 72px); line-height: 1.02; letter-spacing: -0.035em;
-       font-weight: 700; margin: 0 0 22px; max-width: 12ch; }
-  .lede { font-size: clamp(18px, 2.2vw, 21px); color: var(--muted); max-width: 34ch; margin: 0 0 32px; }
-  .cta { display: flex; flex-wrap: wrap; align-items: center; gap: 14px 18px; }
-  .pill { display: inline-flex; align-items: center; gap: 10px; padding: 13px 20px; border-radius: 999px;
-          background: var(--text); color: var(--bg); font-weight: 600; font-size: 15px; }
-  .pill svg { width: 18px; height: 18px; }
-  .meta { font-size: 14px; color: var(--faint); }
+  .hero { display: grid; grid-template-columns: 1.1fr 0.9fr; gap: clamp(40px, 6vw, 80px); align-items: center;
+          padding: clamp(48px, 8vw, 104px) 0 clamp(56px, 8vw, 96px); }
+  h1 { font-family: var(--display); font-weight: 700; font-size: clamp(46px, 7.4vw, 86px); line-height: 0.98;
+       letter-spacing: -0.045em; margin: 0 0 24px; max-width: 10ch; }
+  h1 em { font-style: normal; color: var(--mint-hi); }
+  .lede { font-size: clamp(18px, 2vw, 21px); color: var(--muted); max-width: 38ch; margin: 0 0 34px; }
+  .cta { display: flex; flex-wrap: wrap; align-items: center; gap: 16px 22px; }
+  .store { display: inline-flex; align-items: center; gap: 11px; padding: 10px 20px 10px 15px; border-radius: 13px;
+           background: var(--text); color: var(--bg); }
+  .store svg { width: 24px; height: 24px; flex: none; }
+  .store small { display: block; font-size: 11px; line-height: 1.15; opacity: 0.72; }
+  .store b { display: block; font-size: 18px; line-height: 1.1; letter-spacing: -0.015em; }
+  .facts { list-style: none; padding: 0; margin: 0; display: flex; flex-wrap: wrap; gap: 6px 18px; font-size: 14px; color: var(--muted); }
+  .facts li::before { content: "✓"; color: var(--mint); margin-right: 7px; }
 
-  /* Phone */
-  .phone { width: min(330px, 78vw); margin: 0 auto; border-radius: 44px; padding: 10px;
-           background: #1B2220; border: 1px solid rgba(242,245,244,0.12);
-           box-shadow: 0 30px 80px rgba(0,0,0,0.55), 0 0 0 1px rgba(0,0,0,0.6) inset; }
-  .phone img { border-radius: 35px; width: 100%; }
-  .hero .phone { transform: rotate(2deg); }
+  /* Graded-slab frame */
+  .slab { width: min(348px, 84vw); margin: 0 auto; padding: 13px; border-radius: 22px; position: relative;
+          background: linear-gradient(155deg, rgba(242,245,244,0.11), rgba(242,245,244,0.03) 36%, rgba(242,245,244,0.06));
+          border: 1px solid var(--line-strong);
+          box-shadow: 0 1px 0 rgba(242,245,244,0.14) inset, 0 50px 100px -20px rgba(0,0,0,0.7); }
+  .slab::after { content: ""; position: absolute; inset: 6px; border-radius: 17px; border: 1px solid rgba(242,245,244,0.06); pointer-events: none; }
+  .label { display: grid; grid-template-columns: 1fr auto; align-items: center; gap: 12px; margin-bottom: 12px;
+           background: var(--label); color: var(--label-ink); border-radius: 9px; padding: 10px 12px 9px; font-family: var(--mono); }
+  .label .l1 { font-weight: 600; font-size: 12px; letter-spacing: 0.07em; }
+  .label .l2 { font-size: 10.5px; letter-spacing: 0.05em; opacity: 0.7; margin-top: 2px; }
+  .label .code { height: 13px; width: 132px; margin-top: 7px; opacity: 0.85;
+                 background: repeating-linear-gradient(90deg, var(--label-ink) 0 1px, transparent 1px 3px, var(--label-ink) 3px 5px,
+                   transparent 5px 6px, var(--label-ink) 6px 7px, transparent 7px 10px, var(--label-ink) 10px 12px, transparent 12px 13px); }
+  .label .grade { text-align: right; line-height: 1; }
+  .label .grade small { display: block; font-size: 9.5px; font-weight: 600; letter-spacing: 0.12em; margin-bottom: 3px; }
+  .label .grade b { font-family: var(--display); font-size: 32px; letter-spacing: -0.03em; }
+  .phone { border-radius: 38px; padding: 7px; background: #1A211F; border: 1px solid rgba(242,245,244,0.12); }
+  .phone img { border-radius: 32px; width: 100%; }
 
-  /* Features */
-  .feature { display: grid; grid-template-columns: 0.9fr 1.1fr; gap: clamp(32px, 6vw, 80px); align-items: center;
-             padding: clamp(48px, 8vw, 96px) 0; border-top: 1px solid var(--line); }
-  .feature.flip { grid-template-columns: 1.1fr 0.9fr; }
-  .feature.flip .shot { order: 2; }
-  h2 { font-family: var(--display); font-size: clamp(28px, 4vw, 42px); line-height: 1.08; letter-spacing: -0.025em;
-       margin: 0 0 16px; font-weight: 700; max-width: 16ch; }
-  .feature p { color: var(--muted); margin: 0 0 14px; max-width: 46ch; }
-  .feature ul { margin: 20px 0 0; padding: 0; list-style: none; max-width: 46ch; }
-  .feature li { padding: 12px 0; border-top: 1px solid var(--line); color: var(--muted); }
-  .feature li strong { color: var(--text); font-weight: 600; }
-  .num { font-family: var(--numbers); color: var(--text); font-weight: 600; }
+  /* Live market band */
+  .pulse { border-top: 1px solid var(--line); border-bottom: 1px solid var(--line); background: var(--bg-raised); }
+  .pulse-in { padding-top: clamp(40px, 6vw, 64px); padding-bottom: clamp(40px, 6vw, 64px); display: grid; grid-template-columns: 0.85fr 1.15fr; gap: clamp(32px, 6vw, 80px); align-items: start; }
+  .live { display: inline-flex; align-items: center; gap: 9px; font: 500 12px/1 var(--mono); letter-spacing: 0.12em;
+          text-transform: uppercase; color: var(--gain); margin: 0 0 16px; }
+  .live::before { content: ""; width: 7px; height: 7px; border-radius: 50%; background: var(--gain); animation: ping 2.4s var(--ease) infinite; }
+  @keyframes ping { 0% { box-shadow: 0 0 0 0 rgba(53,214,127,0.55); } 70%, 100% { box-shadow: 0 0 0 9px rgba(53,214,127,0); } }
+  .breadth { display: flex; gap: clamp(24px, 4vw, 40px); margin: 22px 0 14px; }
+  .breadth div { font-size: 14px; color: var(--muted); }
+  .breadth b { display: block; font: 600 clamp(32px, 4.4vw, 44px)/1.05 var(--mono); letter-spacing: -0.03em; margin-bottom: 4px; }
+  .breadth .up b { color: var(--gain); }
+  .breadth .down b { color: var(--loss); }
+  .split { height: 6px; border-radius: 99px; background: var(--loss); overflow: hidden; }
+  .split span { display: block; height: 100%; width: 100%; background: var(--gain); transform-origin: left;
+                transform: scaleX(0.5); transition: transform 1100ms var(--ease); }
+  .fine { font-size: 13px; color: var(--faint); margin: 14px 0 0; max-width: 46ch; }
+  .movers-head { display: flex; justify-content: space-between; font: 500 12px/1 var(--mono); letter-spacing: 0.12em;
+                 text-transform: uppercase; color: var(--faint); margin: 4px 0 10px; }
+  .movers { list-style: none; margin: 0; padding: 0; }
+  .movers li { display: grid; grid-template-columns: 36px minmax(0, 1fr) auto; gap: 14px; align-items: center;
+               padding: 11px 0; border-top: 1px solid var(--line); }
+  .movers img, .movers .ph { width: 36px; height: 50px; object-fit: cover; border-radius: 3px; background: var(--surface); }
+  .movers .nm { font-weight: 600; font-size: 15px; line-height: 1.25; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+  .movers .gm { font-size: 12.5px; color: var(--faint); overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+  .movers .px { text-align: right; font: 400 12.5px/1.35 var(--mono); color: var(--muted); white-space: nowrap; }
+  .movers .px b { display: block; font-size: 15px; font-weight: 600; }
+
+  /* Story: the phone stays put and its screen follows the text (desktop) */
+  .story { display: grid; grid-template-columns: 1fr 1fr; gap: clamp(32px, 6vw, 96px); padding: clamp(24px, 4vw, 48px) 0; }
+  .story-phone { position: sticky; top: 84px; align-self: start; padding: 12px 0; }
+  .stack { display: grid; margin: 0 auto; width: min(330px, calc((100vh - 130px) * var(--phone-ratio))); }
+  .stack .phone { grid-area: 1 / 1; opacity: 0; transform: translateY(10px) scale(0.985);
+                  transition: opacity 520ms var(--ease), transform 520ms var(--ease); }
+  .stack .phone.on { opacity: 1; transform: none; }
+  .step { min-height: 88vh; display: flex; flex-direction: column; justify-content: center; padding: 32px 0; }
+  .step .n { font: 500 12px/1 var(--mono); color: var(--faint); letter-spacing: 0.14em; margin-bottom: 20px; }
+  .step .n span { color: var(--mint-hi); }
+  .step p { color: var(--muted); margin: 0 0 14px; max-width: 44ch; }
+  .step p strong, .step li strong { color: var(--text); font-weight: 600; }
+  .step ul { list-style: none; padding: 0; margin: 10px 0 0; max-width: 44ch; }
+  .step li { padding: 12px 0; border-top: 1px solid var(--line); color: var(--muted); }
+  .step .inline { display: none; }
 
   /* Games */
-  .games { padding: clamp(48px, 8vw, 88px) 0; border-top: 1px solid var(--line); }
-  .games h2 { max-width: none; }
-  .games p.list { font-size: clamp(19px, 2.6vw, 26px); line-height: 1.5; letter-spacing: -0.01em; color: var(--text); margin: 18px 0 0; max-width: 60ch; }
-  .games .list .g { white-space: nowrap; }
-  .games .list .sep { color: var(--faint); padding: 0 0.1em; }
-  .games .sub { color: var(--muted); margin: 16px 0 0; font-size: 16px; }
+  .games { padding: clamp(56px, 8vw, 104px) 0; border-top: 1px solid var(--line); }
+  .chips { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 26px; max-width: 920px; }
+  .chip { display: inline-flex; align-items: center; gap: 9px; padding: 8px 15px 8px 13px; border-radius: 999px;
+          border: 1px solid var(--line-strong); font-size: 15px; background: var(--bg-raised); }
+  .chip i { width: 9px; height: 9px; border-radius: 50%; background: var(--c); flex: none; }
+  .games .sub { color: var(--muted); margin: 24px 0 0; font-size: 15px; max-width: 64ch; }
+  .games .sub b { color: var(--text); font-weight: 600; }
 
-  /* Promise */
-  .promise { padding: clamp(48px, 8vw, 88px) 0; border-top: 1px solid var(--line); }
-  .promise-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 0; margin-top: 8px; }
-  .promise-grid div { padding: 20px 24px 20px 0; }
-  .promise-grid div + div { padding-left: 24px; border-left: 1px solid var(--line); }
-  .promise h3 { font-size: 18px; margin: 0 0 6px; letter-spacing: -0.01em; }
-  .promise-grid p { margin: 0; color: var(--muted); font-size: 15px; }
+  /* The deal */
+  .promise { padding: clamp(56px, 8vw, 104px) 0; border-top: 1px solid var(--line); }
+  .promise-grid { display: grid; grid-template-columns: repeat(3, 1fr); margin-top: 30px; border-top: 1px solid var(--line-strong); }
+  .promise-grid div { padding: 26px 28px 4px 0; }
+  .promise-grid div + div { padding-left: 28px; border-left: 1px solid var(--line); }
+  .promise h3 { font-size: 20px; margin: 0 0 8px; letter-spacing: -0.015em; }
+  .promise-grid p { margin: 0; color: var(--muted); font-size: 15px; max-width: 34ch; }
+
+  /* Closing */
+  .closing { padding: clamp(72px, 11vw, 136px) 0; border-top: 1px solid var(--line); text-align: center; }
+  .closing h2 { margin: 0 auto 18px; max-width: 16ch; font-size: clamp(34px, 5.4vw, 60px); }
+  .closing p { color: var(--muted); margin: 0 auto 32px; max-width: 44ch; }
+  .closing .cta { justify-content: center; }
 
   /* Footer */
   footer { border-top: 1px solid var(--line); padding: 36px 0 48px; color: var(--faint); font-size: 14px; }
   .foot { display: flex; flex-wrap: wrap; gap: 12px 28px; align-items: center; justify-content: space-between; }
-  .foot nav { flex-wrap: wrap; row-gap: 8px; }
+  .foot nav { display: flex; flex-wrap: wrap; gap: 8px 22px; }
   .foot nav a { color: var(--muted); }
-  .legal { margin: 20px 0 0; max-width: 80ch; font-size: 13px; line-height: 1.5; }
+  .legal { margin: 20px 0 0; max-width: 84ch; font-size: 12.5px; line-height: 1.6; }
 
-  @media (max-width: 860px) {
-    .hero, .feature, .feature.flip { grid-template-columns: 1fr; }
-    .feature.flip .shot { order: 0; }
-    .hero .phone { transform: none; }
-    .shot { order: 0; }
+  /* Reveal on scroll (only when JS runs, so the page never stays blank) */
+  .js .reveal { opacity: 0; transform: translateY(16px); transition: opacity 900ms var(--ease), transform 900ms var(--ease); }
+  .js .reveal.in { opacity: 1; transform: none; }
+  .js .reveal.d1 { transition-delay: 120ms; }
+
+  @media (prefers-reduced-motion: reduce) {
+    html { scroll-behavior: auto; }
+    .js .reveal, .stack .phone, .split span { transition: none; }
+    .js .reveal { opacity: 1; transform: none; }
+    .live::before { animation: none; }
+  }
+
+  @media (max-width: 920px) {
+    .hero, .pulse-in, .story { grid-template-columns: 1fr; }
+    .story-phone { display: none; }
+    .step { min-height: 0; padding: 44px 0; border-top: 1px solid var(--line); }
+    .step:first-child { border-top: 0; }
+    .step .inline { display: block; margin: 30px auto 0; width: min(300px, 78vw); }
     .promise-grid { grid-template-columns: 1fr; }
-    .promise-grid div, .promise-grid div + div { padding: 16px 0; border-left: 0; border-top: 1px solid var(--line); }
-    nav.top a.hide-sm { display: none; }
+    .promise-grid div, .promise-grid div + div { padding: 20px 0 6px; border-left: 0; }
+    .promise-grid div + div { border-top: 1px solid var(--line); }
+    nav.top .hide-sm { display: none; }
   }
 </style>
 </head>
@@ -124,8 +205,8 @@
   <div class="wrap bar">
     <a class="brand" href="./" aria-label="Glinto home"><img src="assets/icon-256.png" alt="">Glinto</a>
     <nav class="top" aria-label="Main">
-      <a class="hide-sm" href="#prices">Prices</a>
-      <a class="hide-sm" href="#lab">The Lab</a>
+      <a class="hide-sm" href="#story">Features</a>
+      <a class="hide-sm" href="#games">Games</a>
       <a href="support.html">Support</a>
       <a href="privacy.html">Privacy</a>
     </nav>
@@ -135,89 +216,148 @@
 <main>
   <div class="wrap">
     <section class="hero">
-      <div>
-        <p class="eyebrow">Trading card portfolio for iPhone</p>
-        <h1>What your cards are worth.</h1>
-        <p class="lede">Track Pokémon, Magic, Yu-Gi-Oh!, One Piece, Lorcana and nine more games at current market prices, raw and graded.</p>
+      <div class="reveal">
+        <p class="eyebrow">Trading card portfolio · iPhone</p>
+        <h1>What your cards are <em>worth.</em></h1>
+        <p class="lede">Current market prices for Pokémon, Magic, Yu-Gi-Oh!, One Piece, Lorcana and nine more games, raw and graded. Add your cards and see what the collection is worth today.</p>
         <div class="cta">
-          <span class="pill" role="note">
+          <span class="store" role="note" aria-label="Coming soon to the App Store">
             <svg viewBox="0 0 24 24" aria-hidden="true" fill="currentColor"><path d="M16.37 12.6c-.02-2.2 1.8-3.26 1.88-3.31-1.03-1.5-2.62-1.71-3.19-1.73-1.36-.14-2.65.8-3.34.8-.69 0-1.75-.78-2.88-.76-1.48.02-2.85.86-3.61 2.19-1.54 2.67-.39 6.62 1.11 8.79.73 1.06 1.61 2.25 2.75 2.21 1.1-.04 1.52-.71 2.85-.71 1.33 0 1.71.71 2.88.69 1.19-.02 1.94-1.08 2.67-2.14.84-1.23 1.19-2.42 1.21-2.48-.03-.01-2.32-.89-2.33-3.55zM14.18 6.13c.61-.74 1.02-1.76.91-2.78-.88.04-1.94.59-2.57 1.32-.56.65-1.06 1.69-.93 2.69.98.08 1.98-.5 2.59-1.23z"/></svg>
-            Coming soon to the App Store
+            <span><small>Coming soon to the</small><b>App Store</b></span>
           </span>
-          <span class="meta">Free · No ads · No account needed to start</span>
+          <ul class="facts"><li>Free</li><li>No ads</li><li>No account needed</li></ul>
         </div>
       </div>
-      <div class="shot">
-        <div class="phone"><img src="assets/01-portfolio.jpg" width="660" height="1435" alt="Glinto's portfolio screen: total value across seven cards, the day's change, unrealized gain and a value chart."></div>
+      <div class="reveal d1">
+        <figure class="slab" style="margin: 0 auto">
+          <div class="label" aria-hidden="true">
+            <div>
+              <div class="l1">GLINTO · PORTFOLIO</div>
+              <div class="l2">2026 · 14 GAMES · RAW &amp; GRADED</div>
+              <div class="code"></div>
+            </div>
+            <div class="grade"><small>GEM MT</small><b>10</b></div>
+          </div>
+          <div class="phone"><img src="assets/01-portfolio.jpg" width="660" height="1435" fetchpriority="high"
+               alt="Glinto's portfolio screen: total value across seven cards, the day's change, unrealized gain and a value chart."></div>
+        </figure>
+      </div>
+    </section>
+  </div>
+
+  <!-- Filled from the same public data the app reads; stays hidden if it can't load. -->
+  <section class="pulse" id="market" aria-labelledby="market-h" hidden>
+    <div class="wrap pulse-in">
+      <div class="reveal">
+        <p class="live">Live</p>
+        <h2 id="market-h">The market today.</h2>
+        <div class="breadth">
+          <div class="up"><b id="n-up"></b>cards up</div>
+          <div class="down"><b id="n-down"></b>cards down</div>
+        </div>
+        <div class="split" id="split-bar" role="img"><span id="split"></span></div>
+        <p class="fine">Every card worth $5 or more across the 14 games, against its price a day earlier. From TCGplayer market data, updated through the day. The same numbers the app shows.</p>
+      </div>
+      <div class="reveal d1" id="movers-col">
+        <p class="movers-head"><span>Biggest movers this week</span></p>
+        <ul class="movers" id="movers"></ul>
+      </div>
+    </div>
+  </section>
+
+  <div class="wrap" id="story">
+    <section class="story">
+      <div class="story-phone" aria-hidden="true">
+        <div class="stack">
+          <div class="phone on"><img src="assets/03-card-detail.jpg" width="660" height="1435" alt=""></div>
+          <div class="phone"><img src="assets/02-market.jpg" width="660" height="1435" alt="" loading="lazy"></div>
+          <div class="phone"><img src="assets/04-lab.jpg" width="660" height="1435" alt="" loading="lazy"></div>
+          <div class="phone"><img src="assets/05-insights.jpg" width="660" height="1435" alt="" loading="lazy"></div>
+        </div>
+      </div>
+      <div>
+        <article class="step" data-step="0">
+          <div class="n"><span>01</span> · PRICES</div>
+          <h2>Prices you can check.</h2>
+          <p>Raw prices by printing and condition from TCGplayer market data, refreshed several times a day. Graded prices by grader and grade, where slabs trade.</p>
+          <ul>
+            <li><strong>Flagged, not guessed.</strong> When a card's own listings contradict its market price, Glinto says so instead of picking a number.</li>
+            <li><strong>Gaps stay gaps.</strong> More than a year of history on most cards worth $25 or more, each price on the date it changed. Missing stretches are marked, never filled in.</li>
+            <li><strong>No number, no pretending.</strong> When there's no price for a card or a grade, the app tells you.</li>
+          </ul>
+          <div class="phone inline"><img src="assets/03-card-detail.jpg" width="660" height="1435" loading="lazy" alt="A card page for Umbreon VMAX (Alternate Art Secret) with its market estimate and condition choices."></div>
+        </article>
+        <article class="step" data-step="1">
+          <div class="n"><span>02</span> · MARKET</div>
+          <h2>Know what's moving.</h2>
+          <p>Search <strong>290,000</strong> cards and <strong>2,100</strong> sealed products. See the week's biggest movers and where they moved from, market indices by game, and a weekly recap.</p>
+          <p>Point the camera at a card and Glinto reads its name and number on your phone. The photo never leaves it.</p>
+          <div class="phone inline"><img src="assets/02-market.jpg" width="660" height="1435" loading="lazy" alt="The Market tab: the week's top movers with the price each moved from, and market indices by game."></div>
+        </article>
+        <article class="step" data-step="2">
+          <div class="n"><span>03</span> · THE LAB</div>
+          <h2>Should you rip that pack?</h2>
+          <p><strong>Rip Lab</strong> works out what a pack is expected to be worth against what it costs today, from published pull rates and current single prices, for the sets where pull rates are known. Most packs lose money, and it shows you by how much.</p>
+          <p><strong>Market Pulse</strong> shows how many cards are up versus down in each game, the most volatile cards, and where grading pays.</p>
+          <div class="phone inline"><img src="assets/04-lab.jpg" width="660" height="1435" loading="lazy" alt="The Lab: Market Pulse, and Rip Lab showing a pack's expected value against its cost."></div>
+        </article>
+        <article class="step" data-step="3">
+          <div class="n"><span>04</span> · YOUR COLLECTION</div>
+          <h2>Your collection, in detail.</h2>
+          <p>Add raw copies and graded slabs, record what you paid, and see profit and loss per card and across the collection. Mark cards as sold to track what you actually made.</p>
+          <p>Set a price to buy below or sell above, and Glinto alerts you when it's hit.</p>
+          <div class="phone inline"><img src="assets/05-insights.jpg" width="660" height="1435" loading="lazy" alt="Insights: all-time gain on the portfolio and its top performing cards."></div>
+        </article>
       </div>
     </section>
   </div>
 
   <div class="wrap">
-    <section class="feature" id="prices">
-      <div class="shot">
-        <div class="phone"><img src="assets/03-card-detail.jpg" width="660" height="1435" loading="lazy" alt="A card page for Umbreon VMAX (Alternate Art Secret) showing its market estimate and condition choices."></div>
-      </div>
-      <div>
-        <h2>Prices you can check.</h2>
-        <p>Raw prices by printing and condition from TCGplayer market data, refreshed several times a day. Graded prices by grader and grade, where slabs trade.</p>
-        <ul>
-          <li><strong>Flagged, not guessed.</strong> When a card's own listings contradict its market price, Glinto says so instead of picking a number.</li>
-          <li><strong>Gaps stay gaps.</strong> Each price is plotted on the date it changed, with more than a year of history on most cards worth $25 or more. Missing stretches are marked, never filled in.</li>
-          <li><strong>No number, no pretending.</strong> When there's no price for a card or a grade, the app tells you.</li>
-        </ul>
-      </div>
-    </section>
-
-    <section class="feature flip">
-      <div class="shot">
-        <div class="phone"><img src="assets/02-market.jpg" width="660" height="1435" loading="lazy" alt="The Market tab: top price movers for the week with the price each moved from, and market indices by game."></div>
-      </div>
-      <div>
-        <h2>Know what's moving.</h2>
-        <p>Search about <span class="num">290,000</span> cards and <span class="num">2,000</span> sealed products. See the week's biggest movers and where they moved from, market indices by game, and a weekly recap.</p>
-        <p>Point the camera at a card and Glinto reads its name and number on your phone. The photo never leaves it.</p>
-      </div>
-    </section>
-
-    <section class="feature" id="lab">
-      <div class="shot">
-        <div class="phone"><img src="assets/04-lab.jpg" width="660" height="1435" loading="lazy" alt="The Lab: Market Pulse showing how many cards are up versus down, and Rip Lab showing a pack's expected value against its cost."></div>
-      </div>
-      <div>
-        <h2>The Lab.</h2>
-        <p><strong>Rip Lab</strong> works out what a pack is expected to be worth against what it costs today, from real pull rates and current single prices, for the sets where pull rates are known. Most packs lose money, and it shows you by how much.</p>
-        <p><strong>Market Pulse</strong> shows how many cards are up versus down in each game, the most volatile cards, and where grading pays.</p>
-      </div>
-    </section>
-
-    <section class="feature flip">
-      <div class="shot">
-        <div class="phone"><img src="assets/05-insights.jpg" width="660" height="1435" loading="lazy" alt="Insights: all-time gain on the portfolio and its top performing cards."></div>
-      </div>
-      <div>
-        <h2>Your collection, in detail.</h2>
-        <p>Add raw copies and graded slabs, record what you paid, and see profit and loss per card and across your collection. Mark cards as sold to track what you actually made.</p>
-        <p>Set a price to buy below or sell above, and Glinto alerts you when it's hit.</p>
-      </div>
-    </section>
-  </div>
-
-  <div class="wrap">
-    <section class="games" aria-labelledby="games-h">
+    <section class="games reveal" id="games" aria-labelledby="games-h">
+      <p class="eyebrow">Coverage</p>
       <h2 id="games-h">Fourteen games.</h2>
-      <p class="list"><span class="g">Pokémon</span>&nbsp;<span class="sep" aria-hidden="true">·</span> <span class="g">Pokémon Japan</span>&nbsp;<span class="sep" aria-hidden="true">·</span> <span class="g">Magic: The Gathering</span>&nbsp;<span class="sep" aria-hidden="true">·</span> <span class="g">Yu-Gi-Oh!</span>&nbsp;<span class="sep" aria-hidden="true">·</span> <span class="g">One Piece</span>&nbsp;<span class="sep" aria-hidden="true">·</span> <span class="g">Lorcana</span>&nbsp;<span class="sep" aria-hidden="true">·</span> <span class="g">Dragon Ball Super Masters</span>&nbsp;<span class="sep" aria-hidden="true">·</span> <span class="g">Dragon Ball Super Fusion World</span>&nbsp;<span class="sep" aria-hidden="true">·</span> <span class="g">Flesh and Blood</span>&nbsp;<span class="sep" aria-hidden="true">·</span> <span class="g">Digimon</span>&nbsp;<span class="sep" aria-hidden="true">·</span> <span class="g">Star Wars: Unlimited</span>&nbsp;<span class="sep" aria-hidden="true">·</span> <span class="g">Union Arena</span>&nbsp;<span class="sep" aria-hidden="true">·</span> <span class="g">Final Fantasy</span>&nbsp;<span class="sep" aria-hidden="true">·</span> <span class="g">Gundam</span></p>
-      <p class="sub">Graded prices cover Pokémon, Pokémon Japan, Magic, Yu-Gi-Oh!, One Piece, Lorcana and Star Wars: Unlimited, where slabs trade.</p>
+      <div class="chips">
+        <span class="chip" style="--c:#E6C13C"><i></i>Pokémon</span>
+        <span class="chip" style="--c:#E6C13C"><i></i>Pokémon Japan</span>
+        <span class="chip" style="--c:#EA5E54"><i></i>Magic: The Gathering</span>
+        <span class="chip" style="--c:#A98BE6"><i></i>Yu-Gi-Oh!</span>
+        <span class="chip" style="--c:#4FA6E8"><i></i>One Piece</span>
+        <span class="chip" style="--c:#DBC066"><i></i>Lorcana</span>
+        <span class="chip" style="--c:#F0824E"><i></i>Dragon Ball Super Masters</span>
+        <span class="chip" style="--c:#F0824E"><i></i>Dragon Ball Super Fusion World</span>
+        <span class="chip" style="--c:#7C8AE0"><i></i>Flesh and Blood</span>
+        <span class="chip" style="--c:#4FC2D6"><i></i>Digimon</span>
+        <span class="chip" style="--c:#5B80D6"><i></i>Star Wars: Unlimited</span>
+        <span class="chip" style="--c:#E05AF0"><i></i>Union Arena</span>
+        <span class="chip" style="--c:#82A0AE"><i></i>Final Fantasy</span>
+        <span class="chip" style="--c:#4A7FB5"><i></i>Gundam</span>
+      </div>
+      <p class="sub">Raw prices for all fourteen. Graded prices for <b>Pokémon, Pokémon Japan, Magic, Yu-Gi-Oh!, One Piece, Lorcana and Star Wars: Unlimited</b>, where slabs trade.</p>
     </section>
 
-    <section class="promise" aria-label="What Glinto doesn't do">
+    <section class="promise reveal" aria-labelledby="deal-h">
+      <p class="eyebrow">The deal</p>
+      <h2 id="deal-h">Free, and it stays out of your way.</h2>
       <div class="promise-grid">
-        <div><h3>Free.</h3><p>Every feature, no subscription.</p></div>
+        <div><h3>Every feature, free.</h3><p>No subscription, no locked tools, no trial that runs out.</p></div>
         <div><h3>No ads, no tracking.</h3><p>Nothing about you is sold or shared with advertisers.</p></div>
-        <div><h3>No account to start.</h3><p>Sign in with Apple or Google later and your collection comes with you.</p></div>
+        <div><h3>No account to start.</h3><p>Open it and go. Sign in with Apple or Google later and your collection comes with you.</p></div>
       </div>
     </section>
   </div>
+
+  <section class="closing">
+    <div class="wrap reveal">
+      <h2>Know what's in the binder.</h2>
+      <p>Glinto is coming to the App Store for iPhone. Questions or ideas until then: <a href="mailto:glinto.support@gmail.com">glinto.support@gmail.com</a></p>
+      <div class="cta">
+        <span class="store" role="note" aria-label="Coming soon to the App Store">
+          <svg viewBox="0 0 24 24" aria-hidden="true" fill="currentColor"><path d="M16.37 12.6c-.02-2.2 1.8-3.26 1.88-3.31-1.03-1.5-2.62-1.71-3.19-1.73-1.36-.14-2.65.8-3.34.8-.69 0-1.75-.78-2.88-.76-1.48.02-2.85.86-3.61 2.19-1.54 2.67-.39 6.62 1.11 8.79.73 1.06 1.61 2.25 2.75 2.21 1.1-.04 1.52-.71 2.85-.71 1.33 0 1.71.71 2.88.69 1.19-.02 1.94-1.08 2.67-2.14.84-1.23 1.19-2.42 1.21-2.48-.03-.01-2.32-.89-2.33-3.55zM14.18 6.13c.61-.74 1.02-1.76.91-2.78-.88.04-1.94.59-2.57 1.32-.56.65-1.06 1.69-.93 2.69.98.08 1.98-.5 2.59-1.23z"/></svg>
+          <span><small>Coming soon to the</small><b>App Store</b></span>
+        </span>
+      </div>
+    </div>
+  </section>
 </main>
 
 <footer>
@@ -234,5 +374,79 @@
   </div>
 </footer>
 
+<script>
+(() => {
+  // Live band: breadth and the week's movers from Glinto's backend, with the
+  // publishable key (public by design; the app ships the same one). Row-level
+  // security allows reading only. If anything fails the band stays hidden,
+  // so the page never shows a made-up number.
+  const API = "https://eshkfkgaycizdpjuxkun.supabase.co/rest/v1/rpc/";
+  const KEY = "sb_publishable_zMW7I-Xr6XPELVQ02epowA_4SIt1MaC";
+  const rpc = (fn, body) => fetch(API + fn, {
+    method: "POST",
+    headers: { apikey: KEY, "Content-Type": "application/json" },
+    body: JSON.stringify(body),
+  }).then(r => (r.ok ? r.json() : Promise.reject(r.status)));
+  const n = new Intl.NumberFormat("en-US");
+  const usd = v => "$" + (v >= 1000 ? n.format(Math.round(v)) : v >= 100 ? Math.round(v) : v.toFixed(2));
+  const esc = s => String(s ?? "").replace(/[&<>"]/g, c => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" }[c]));
+  const $ = id => document.getElementById(id);
+
+  Promise.all([rpc("get_market_breadth", {}), rpc("get_top_movers", { g: null, lim: 5 }).catch(() => [])])
+    .then(([breadth, movers]) => {
+      const up = breadth.reduce((a, r) => a + (r.advancers || 0), 0);
+      const down = breadth.reduce((a, r) => a + (r.decliners || 0), 0);
+      if (!(up + down)) return;
+      $("n-up").textContent = n.format(up);
+      $("n-down").textContent = n.format(down);
+      const share = up / (up + down);
+      $("split-bar").setAttribute("aria-label", Math.round(share * 100) + "% of the cards that moved went up");
+
+      const rows = (Array.isArray(movers) ? movers : [])
+        .filter(m => Number(m.market) > 0 && m.pct != null && Number(m.pct) > -1).slice(0, 5);
+      if (rows.length) {
+        $("movers").innerHTML = rows.map(m => {
+          const pct = Number(m.pct), market = Number(m.market), from = market / (1 + pct);
+          const colour = pct >= 0 ? "var(--gain)" : "var(--loss)";
+          const pic = m.image_url
+            ? `<img src="${esc(m.image_url)}" alt="" width="36" height="50" loading="lazy" referrerpolicy="no-referrer">`
+            : `<span class="ph"></span>`;
+          return `<li>${pic}<div><div class="nm">${esc(m.name)}</div>` +
+                 `<div class="gm">${esc(m.set_name)} · ${esc(m.game)}</div></div>` +
+                 `<div class="px"><b style="color:${colour}">${pct >= 0 ? "+" : "−"}${n.format(Math.round(Math.abs(pct) * 100))}%</b>` +
+                 `${usd(from)} → ${usd(market)}</div></li>`;
+        }).join("");
+      } else {
+        $("movers-col").remove();
+      }
+      $("market").hidden = false;
+      requestAnimationFrame(() => requestAnimationFrame(() => { $("split").style.transform = `scaleX(${share})`; }));
+      observeReveals($("market"));
+    })
+    .catch(() => {});
+
+  // Reveal on scroll.
+  const reveal = "IntersectionObserver" in window
+    ? new IntersectionObserver(es => es.forEach(e => {
+        if (e.isIntersecting) { e.target.classList.add("in"); reveal.unobserve(e.target); }
+      }), { rootMargin: "0px 0px -8% 0px" })
+    : null;
+  function observeReveals(root) {
+    root.querySelectorAll(".reveal").forEach(el => reveal ? reveal.observe(el) : el.classList.add("in"));
+  }
+  observeReveals(document);
+
+  // Story: the sticky phone shows the screen for the section in the middle of the viewport.
+  const shots = [...document.querySelectorAll(".stack .phone")];
+  if (reveal && shots.length) {
+    const io = new IntersectionObserver(es => es.forEach(e => {
+      if (!e.isIntersecting) return;
+      const i = Number(e.target.dataset.step);
+      shots.forEach((s, k) => s.classList.toggle("on", k === i));
+    }), { rootMargin: "-45% 0px -45% 0px" });
+    document.querySelectorAll(".step").forEach(s => io.observe(s));
+  }
+})();
+</script>
 </body>
 </html>
