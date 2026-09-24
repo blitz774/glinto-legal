@@ -3,23 +3,236 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Support — Glinto</title>
+<title>Glinto: what your trading cards are worth</title>
+<meta name="description" content="Track Pokémon, Magic, Yu-Gi-Oh!, One Piece, Lorcana and nine more games at current market prices, raw and graded. Free on iPhone.">
+<meta name="theme-color" content="#0B0F0E">
+<meta property="og:title" content="Glinto: what your trading cards are worth">
+<meta property="og:description" content="Current market prices for 14 trading card games, raw and graded. Free on iPhone.">
+<meta property="og:image" content="https://blitz774.github.io/glinto-legal/assets/01-portfolio.jpg">
+<meta property="og:type" content="website">
+<link rel="icon" type="image/png" href="assets/favicon-64.png">
+<link rel="apple-touch-icon" href="assets/icon-256.png">
 <style>
-  body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
-         max-width: 720px; margin: 0 auto; padding: 32px 20px; line-height: 1.6;
-         color: #1a1d1c; background: #fafcfb; }
-  h1 { font-size: 1.6rem; }
-  a { color: #0e8a6d; }
-  @media (prefers-color-scheme: dark) {
-    body { background: #101413; color: #e7ecea; } a { color: #3ecfa4; }
+  :root {
+    --bg: #0B0F0E;
+    --surface: #141A18;
+    --line: rgba(242, 245, 244, 0.09);
+    --text: #F2F5F4;
+    --muted: #A6B2AE;
+    --faint: #75827E;
+    --mint: #25B58C;
+    --mint-soft: rgba(37, 181, 140, 0.12);
+    --gain: #35D67F;
+    --radius: 22px;
+    --gutter: clamp(16px, 5vw, 40px);
+    --sans: -apple-system, BlinkMacSystemFont, "SF Pro Text", "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+    --display: -apple-system, BlinkMacSystemFont, "SF Pro Display", "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+    --numbers: ui-rounded, "SF Pro Rounded", -apple-system, BlinkMacSystemFont, sans-serif;
+  }
+  * { box-sizing: border-box; }
+  html { -webkit-text-size-adjust: 100%; }
+  body {
+    margin: 0; background: var(--bg); color: var(--text);
+    font: 17px/1.55 var(--sans); -webkit-font-smoothing: antialiased;
+  }
+  a { color: var(--mint); text-decoration: none; }
+  a:hover { text-decoration: underline; text-underline-offset: 3px; }
+  a:focus-visible, .pill:focus-visible { outline: 2px solid var(--mint); outline-offset: 3px; border-radius: 6px; }
+  img { display: block; max-width: 100%; height: auto; }
+  .wrap { max-width: 1080px; margin: 0 auto; padding: 0 var(--gutter); }
+
+  /* Header */
+  header { border-bottom: 1px solid var(--line); }
+  .bar { display: flex; align-items: center; justify-content: space-between; height: 64px; }
+  .brand { display: flex; align-items: center; gap: 10px; color: var(--text); font-weight: 700; font-size: 18px; letter-spacing: -0.01em; }
+  .brand:hover { text-decoration: none; }
+  .brand img { width: 30px; height: 30px; border-radius: 7px; }
+  nav { display: flex; gap: clamp(14px, 3vw, 28px); font-size: 15px; }
+  nav a { color: var(--muted); }
+  nav a:hover { color: var(--text); text-decoration: none; }
+
+  /* Hero */
+  .hero { display: grid; grid-template-columns: 1.05fr 0.95fr; gap: clamp(32px, 6vw, 72px); align-items: center;
+          padding: clamp(40px, 8vw, 96px) 0 clamp(48px, 8vw, 88px); }
+  .eyebrow { font-size: 13px; font-weight: 600; letter-spacing: 0.08em; text-transform: uppercase; color: var(--mint); margin: 0 0 18px; }
+  h1 { font-family: var(--display); font-size: clamp(40px, 7vw, 72px); line-height: 1.02; letter-spacing: -0.035em;
+       font-weight: 700; margin: 0 0 22px; max-width: 12ch; }
+  .lede { font-size: clamp(18px, 2.2vw, 21px); color: var(--muted); max-width: 34ch; margin: 0 0 32px; }
+  .cta { display: flex; flex-wrap: wrap; align-items: center; gap: 14px 18px; }
+  .pill { display: inline-flex; align-items: center; gap: 10px; padding: 13px 20px; border-radius: 999px;
+          background: var(--text); color: var(--bg); font-weight: 600; font-size: 15px; }
+  .pill svg { width: 18px; height: 18px; }
+  .meta { font-size: 14px; color: var(--faint); }
+
+  /* Phone */
+  .phone { width: min(330px, 78vw); margin: 0 auto; border-radius: 44px; padding: 10px;
+           background: #1B2220; border: 1px solid rgba(242,245,244,0.12);
+           box-shadow: 0 30px 80px rgba(0,0,0,0.55), 0 0 0 1px rgba(0,0,0,0.6) inset; }
+  .phone img { border-radius: 35px; width: 100%; }
+  .hero .phone { transform: rotate(2deg); }
+
+  /* Features */
+  .feature { display: grid; grid-template-columns: 0.9fr 1.1fr; gap: clamp(32px, 6vw, 80px); align-items: center;
+             padding: clamp(48px, 8vw, 96px) 0; border-top: 1px solid var(--line); }
+  .feature.flip { grid-template-columns: 1.1fr 0.9fr; }
+  .feature.flip .shot { order: 2; }
+  h2 { font-family: var(--display); font-size: clamp(28px, 4vw, 42px); line-height: 1.08; letter-spacing: -0.025em;
+       margin: 0 0 16px; font-weight: 700; max-width: 16ch; }
+  .feature p { color: var(--muted); margin: 0 0 14px; max-width: 46ch; }
+  .feature ul { margin: 20px 0 0; padding: 0; list-style: none; max-width: 46ch; }
+  .feature li { padding: 12px 0; border-top: 1px solid var(--line); color: var(--muted); }
+  .feature li strong { color: var(--text); font-weight: 600; }
+  .num { font-family: var(--numbers); color: var(--text); font-weight: 600; }
+
+  /* Games */
+  .games { padding: clamp(48px, 8vw, 88px) 0; border-top: 1px solid var(--line); }
+  .games h2 { max-width: none; }
+  .games p.list { font-size: clamp(19px, 2.6vw, 26px); line-height: 1.5; letter-spacing: -0.01em; color: var(--text); margin: 18px 0 0; max-width: 60ch; }
+  .games .list .g { white-space: nowrap; }
+  .games .list .sep { color: var(--faint); padding: 0 0.1em; }
+  .games .sub { color: var(--muted); margin: 16px 0 0; font-size: 16px; }
+
+  /* Promise */
+  .promise { padding: clamp(48px, 8vw, 88px) 0; border-top: 1px solid var(--line); }
+  .promise-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 0; margin-top: 8px; }
+  .promise-grid div { padding: 20px 24px 20px 0; }
+  .promise-grid div + div { padding-left: 24px; border-left: 1px solid var(--line); }
+  .promise h3 { font-size: 18px; margin: 0 0 6px; letter-spacing: -0.01em; }
+  .promise-grid p { margin: 0; color: var(--muted); font-size: 15px; }
+
+  /* Footer */
+  footer { border-top: 1px solid var(--line); padding: 36px 0 48px; color: var(--faint); font-size: 14px; }
+  .foot { display: flex; flex-wrap: wrap; gap: 12px 28px; align-items: center; justify-content: space-between; }
+  .foot nav { flex-wrap: wrap; row-gap: 8px; }
+  .foot nav a { color: var(--muted); }
+  .legal { margin: 20px 0 0; max-width: 80ch; font-size: 13px; line-height: 1.5; }
+
+  @media (max-width: 860px) {
+    .hero, .feature, .feature.flip { grid-template-columns: 1fr; }
+    .feature.flip .shot { order: 0; }
+    .hero .phone { transform: none; }
+    .shot { order: 0; }
+    .promise-grid { grid-template-columns: 1fr; }
+    .promise-grid div, .promise-grid div + div { padding: 16px 0; border-left: 0; border-top: 1px solid var(--line); }
+    nav.top a.hide-sm { display: none; }
   }
 </style>
 </head>
 <body>
-<h1>Glinto Support</h1>
-<p>Need help, found a bug, or have a feature request?</p>
-<p>Email us: <a href="mailto:glinto.support@gmail.com?subject=Glinto%20Support">glinto.support@gmail.com</a></p>
-<p>You can also send feedback directly from the app: <strong>Settings → Send Feedback</strong>.</p>
-<p><a href="privacy.html">Privacy Policy</a></p>
+
+<header>
+  <div class="wrap bar">
+    <a class="brand" href="./" aria-label="Glinto home"><img src="assets/icon-256.png" alt="">Glinto</a>
+    <nav class="top" aria-label="Main">
+      <a class="hide-sm" href="#prices">Prices</a>
+      <a class="hide-sm" href="#lab">The Lab</a>
+      <a href="support.html">Support</a>
+      <a href="privacy.html">Privacy</a>
+    </nav>
+  </div>
+</header>
+
+<main>
+  <div class="wrap">
+    <section class="hero">
+      <div>
+        <p class="eyebrow">Trading card portfolio for iPhone</p>
+        <h1>What your cards are worth.</h1>
+        <p class="lede">Track Pokémon, Magic, Yu-Gi-Oh!, One Piece, Lorcana and nine more games at current market prices, raw and graded.</p>
+        <div class="cta">
+          <span class="pill" role="note">
+            <svg viewBox="0 0 24 24" aria-hidden="true" fill="currentColor"><path d="M16.37 12.6c-.02-2.2 1.8-3.26 1.88-3.31-1.03-1.5-2.62-1.71-3.19-1.73-1.36-.14-2.65.8-3.34.8-.69 0-1.75-.78-2.88-.76-1.48.02-2.85.86-3.61 2.19-1.54 2.67-.39 6.62 1.11 8.79.73 1.06 1.61 2.25 2.75 2.21 1.1-.04 1.52-.71 2.85-.71 1.33 0 1.71.71 2.88.69 1.19-.02 1.94-1.08 2.67-2.14.84-1.23 1.19-2.42 1.21-2.48-.03-.01-2.32-.89-2.33-3.55zM14.18 6.13c.61-.74 1.02-1.76.91-2.78-.88.04-1.94.59-2.57 1.32-.56.65-1.06 1.69-.93 2.69.98.08 1.98-.5 2.59-1.23z"/></svg>
+            Coming soon to the App Store
+          </span>
+          <span class="meta">Free · No ads · No account needed to start</span>
+        </div>
+      </div>
+      <div class="shot">
+        <div class="phone"><img src="assets/01-portfolio.jpg" width="660" height="1435" alt="Glinto's portfolio screen: total value across seven cards, the day's change, unrealized gain and a value chart."></div>
+      </div>
+    </section>
+  </div>
+
+  <div class="wrap">
+    <section class="feature" id="prices">
+      <div class="shot">
+        <div class="phone"><img src="assets/03-card-detail.jpg" width="660" height="1435" loading="lazy" alt="A card page for Umbreon VMAX (Alternate Art Secret) showing its market estimate and condition choices."></div>
+      </div>
+      <div>
+        <h2>Prices you can check.</h2>
+        <p>Raw prices by printing and condition from TCGplayer market data, refreshed several times a day. Graded prices by grader and grade, where slabs trade.</p>
+        <ul>
+          <li><strong>Flagged, not guessed.</strong> When a card's own listings contradict its market price, Glinto says so instead of picking a number.</li>
+          <li><strong>Gaps stay gaps.</strong> Each price is plotted on the date it changed, with more than a year of history on most cards worth $25 or more. Missing stretches are marked, never filled in.</li>
+          <li><strong>No number, no pretending.</strong> When there's no price for a card or a grade, the app tells you.</li>
+        </ul>
+      </div>
+    </section>
+
+    <section class="feature flip">
+      <div class="shot">
+        <div class="phone"><img src="assets/02-market.jpg" width="660" height="1435" loading="lazy" alt="The Market tab: top price movers for the week with the price each moved from, and market indices by game."></div>
+      </div>
+      <div>
+        <h2>Know what's moving.</h2>
+        <p>Search about <span class="num">290,000</span> cards and <span class="num">2,000</span> sealed products. See the week's biggest movers and where they moved from, market indices by game, and a weekly recap.</p>
+        <p>Point the camera at a card and Glinto reads its name and number on your phone. The photo never leaves it.</p>
+      </div>
+    </section>
+
+    <section class="feature" id="lab">
+      <div class="shot">
+        <div class="phone"><img src="assets/04-lab.jpg" width="660" height="1435" loading="lazy" alt="The Lab: Market Pulse showing how many cards are up versus down, and Rip Lab showing a pack's expected value against its cost."></div>
+      </div>
+      <div>
+        <h2>The Lab.</h2>
+        <p><strong>Rip Lab</strong> works out what a pack is expected to be worth against what it costs today, from real pull rates and current single prices, for the sets where pull rates are known. Most packs lose money, and it shows you by how much.</p>
+        <p><strong>Market Pulse</strong> shows how many cards are up versus down in each game, the most volatile cards, and where grading pays.</p>
+      </div>
+    </section>
+
+    <section class="feature flip">
+      <div class="shot">
+        <div class="phone"><img src="assets/05-insights.jpg" width="660" height="1435" loading="lazy" alt="Insights: all-time gain on the portfolio and its top performing cards."></div>
+      </div>
+      <div>
+        <h2>Your collection, in detail.</h2>
+        <p>Add raw copies and graded slabs, record what you paid, and see profit and loss per card and across your collection. Mark cards as sold to track what you actually made.</p>
+        <p>Set a price to buy below or sell above, and Glinto alerts you when it's hit.</p>
+      </div>
+    </section>
+  </div>
+
+  <div class="wrap">
+    <section class="games" aria-labelledby="games-h">
+      <h2 id="games-h">Fourteen games.</h2>
+      <p class="list"><span class="g">Pokémon</span>&nbsp;<span class="sep" aria-hidden="true">·</span> <span class="g">Pokémon Japan</span>&nbsp;<span class="sep" aria-hidden="true">·</span> <span class="g">Magic: The Gathering</span>&nbsp;<span class="sep" aria-hidden="true">·</span> <span class="g">Yu-Gi-Oh!</span>&nbsp;<span class="sep" aria-hidden="true">·</span> <span class="g">One Piece</span>&nbsp;<span class="sep" aria-hidden="true">·</span> <span class="g">Lorcana</span>&nbsp;<span class="sep" aria-hidden="true">·</span> <span class="g">Dragon Ball Super Masters</span>&nbsp;<span class="sep" aria-hidden="true">·</span> <span class="g">Dragon Ball Super Fusion World</span>&nbsp;<span class="sep" aria-hidden="true">·</span> <span class="g">Flesh and Blood</span>&nbsp;<span class="sep" aria-hidden="true">·</span> <span class="g">Digimon</span>&nbsp;<span class="sep" aria-hidden="true">·</span> <span class="g">Star Wars: Unlimited</span>&nbsp;<span class="sep" aria-hidden="true">·</span> <span class="g">Union Arena</span>&nbsp;<span class="sep" aria-hidden="true">·</span> <span class="g">Final Fantasy</span>&nbsp;<span class="sep" aria-hidden="true">·</span> <span class="g">Gundam</span></p>
+      <p class="sub">Graded prices cover Pokémon, Pokémon Japan, Magic, Yu-Gi-Oh!, One Piece, Lorcana and Star Wars: Unlimited, where slabs trade.</p>
+    </section>
+
+    <section class="promise" aria-label="What Glinto doesn't do">
+      <div class="promise-grid">
+        <div><h3>Free.</h3><p>Every feature, no subscription.</p></div>
+        <div><h3>No ads, no tracking.</h3><p>Nothing about you is sold or shared with advertisers.</p></div>
+        <div><h3>No account to start.</h3><p>Sign in with Apple or Google later and your collection comes with you.</p></div>
+      </div>
+    </section>
+  </div>
+</main>
+
+<footer>
+  <div class="wrap">
+    <div class="foot">
+      <span>© 2026 Bilal Afzal</span>
+      <nav aria-label="Footer">
+        <a href="support.html">Support</a>
+        <a href="privacy.html">Privacy Policy</a>
+        <a href="mailto:glinto.support@gmail.com">glinto.support@gmail.com</a>
+      </nav>
+    </div>
+    <p class="legal">Glinto is independent and is not affiliated with or endorsed by The Pokémon Company, Nintendo, Wizards of the Coast, Konami, Bandai, Ravensburger, Disney, Legend Story Studios, Fantasy Flight Games, Square Enix or TCGplayer. Card names and images belong to their owners. Prices are market data, not financial advice.</p>
+  </div>
+</footer>
+
 </body>
 </html>
