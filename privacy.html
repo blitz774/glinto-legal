@@ -79,8 +79,12 @@ account removes the token. We never send marketing notifications.</p>
 
 <h2>Purchases</h2>
 <p>Glinto Pro subscriptions are sold and processed by Apple through the App
-Store. We never see your payment details. The app asks Apple whether your
-subscription is active; we don't keep purchase records on our servers.</p>
+Store. We never see your payment details. So that our servers know your account
+has Pro, the app sends us Apple's signed record of your subscription: which plan,
+when it started and when it renews or ends, and Apple's transaction number. We
+check Apple's signature and store that record with your account. Apple also
+tells us directly when a subscription renews, ends or is refunded, and we update
+the same record. It is deleted with your account.</p>
 
 <h2>Links to TCGplayer and eBay</h2>
 <p>Glinto links to TCGplayer and eBay so you can buy a card or look it up. Some
