@@ -30,8 +30,6 @@
     --mint-hi: #4FD6AC;
     --gain: #35D67F;
     --loss: #FF6B61;
-    --label: #EAF0EE;
-    --label-ink: #0E1513;
     --gutter: clamp(16px, 5vw, 40px);
     --sans: -apple-system, BlinkMacSystemFont, "SF Pro Text", "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
     --display: -apple-system, BlinkMacSystemFont, "SF Pro Display", "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
@@ -79,22 +77,9 @@
   .facts { list-style: none; padding: 0; margin: 0; display: flex; flex-wrap: wrap; gap: 6px 18px; font-size: 14px; color: var(--muted); }
   .facts li::before { content: "✓"; color: var(--mint); margin-right: 7px; }
 
-  /* Graded-slab frame */
-  .slab { width: min(348px, 84vw); margin: 0 auto; padding: 13px; border-radius: 22px; position: relative;
-          background: linear-gradient(155deg, rgba(242,245,244,0.11), rgba(242,245,244,0.03) 36%, rgba(242,245,244,0.06));
-          border: 1px solid var(--line-strong);
-          box-shadow: 0 1px 0 rgba(242,245,244,0.14) inset, 0 50px 100px -20px rgba(0,0,0,0.7); }
-  .slab::after { content: ""; position: absolute; inset: 6px; border-radius: 17px; border: 1px solid rgba(242,245,244,0.06); pointer-events: none; }
-  .label { display: grid; grid-template-columns: 1fr auto; align-items: center; gap: 12px; margin-bottom: 12px;
-           background: var(--label); color: var(--label-ink); border-radius: 9px; padding: 10px 12px 9px; font-family: var(--mono); }
-  .label .l1 { font-weight: 600; font-size: 12px; letter-spacing: 0.07em; }
-  .label .l2 { font-size: 10.5px; letter-spacing: 0.05em; opacity: 0.7; margin-top: 2px; }
-  .label .code { height: 13px; width: 132px; margin-top: 7px; opacity: 0.85;
-                 background: repeating-linear-gradient(90deg, var(--label-ink) 0 1px, transparent 1px 3px, var(--label-ink) 3px 5px,
-                   transparent 5px 6px, var(--label-ink) 6px 7px, transparent 7px 10px, var(--label-ink) 10px 12px, transparent 12px 13px); }
-  .label .grade { text-align: right; line-height: 1; }
-  .label .grade small { display: block; font-size: 9.5px; font-weight: 600; letter-spacing: 0.12em; margin-bottom: 3px; }
-  .label .grade b { font-family: var(--display); font-size: 32px; letter-spacing: -0.03em; }
+  /* Hero phone */
+  .hero-phone { width: min(322px, 80vw); margin: 0 auto; }
+  .hero-phone .phone { box-shadow: 0 50px 100px -20px rgba(0,0,0,0.7); }
   .phone { border-radius: 38px; padding: 7px; background: #1A211F; border: 1px solid rgba(242,245,244,0.12); }
   .phone img { border-radius: 32px; width: 100%; }
 
@@ -226,15 +211,7 @@
         </div>
       </div>
       <div class="reveal d1">
-        <figure class="slab" style="margin: 0 auto">
-          <div class="label" aria-hidden="true">
-            <div>
-              <div class="l1">GLINTO · PORTFOLIO</div>
-              <div class="l2">2026 · 14 GAMES · RAW &amp; GRADED</div>
-              <div class="code"></div>
-            </div>
-            <div class="grade"><small>GEM MT</small><b>10</b></div>
-          </div>
+        <figure class="hero-phone">
           <div class="phone"><img src="assets/01-portfolio.jpg" width="660" height="1435" fetchpriority="high"
                alt="Glinto's portfolio screen: total value across seven cards, the day's change, unrealized gain and a value chart."></div>
         </figure>
