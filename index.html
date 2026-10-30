@@ -69,11 +69,10 @@
   h1 em { font-style: normal; color: var(--mint-hi); }
   .lede { font-size: clamp(18px, 2vw, 21px); color: var(--muted); max-width: 38ch; margin: 0 0 34px; }
   .cta { display: flex; flex-wrap: wrap; align-items: center; gap: 16px 22px; }
-  .store { display: inline-flex; align-items: center; gap: 11px; padding: 10px 20px 10px 15px; border-radius: 13px;
-           background: var(--text); color: var(--bg); }
-  .store svg { width: 24px; height: 24px; flex: none; }
-  .store small { display: block; font-size: 11px; line-height: 1.15; opacity: 0.72; }
-  .store b { display: block; font-size: 18px; line-height: 1.1; letter-spacing: -0.015em; }
+  /* Apple's own badge, served by Apple (marketing guidelines: never redrawn). */
+  .badge { display: inline-block; line-height: 0; border-radius: 9px; }
+  .badge img { height: 52px; width: auto; }
+  .badge:focus-visible { outline: 2px solid var(--mint); outline-offset: 3px; }
   .facts { list-style: none; padding: 0; margin: 0; display: flex; flex-wrap: wrap; gap: 6px 18px; font-size: 14px; color: var(--muted); }
   .facts li::before { content: "✓"; color: var(--mint); margin-right: 7px; }
 
@@ -203,10 +202,7 @@
         <h1>What your cards are <em>worth.</em></h1>
         <p class="lede">Current market prices for Pokémon, Magic, Yu-Gi-Oh!, One Piece, Lorcana and nine more games, raw and graded. Add your cards and see what the collection is worth today.</p>
         <div class="cta">
-          <span class="store" role="note" aria-label="Coming soon to the App Store">
-            <svg viewBox="0 0 24 24" aria-hidden="true" fill="currentColor"><path d="M16.37 12.6c-.02-2.2 1.8-3.26 1.88-3.31-1.03-1.5-2.62-1.71-3.19-1.73-1.36-.14-2.65.8-3.34.8-.69 0-1.75-.78-2.88-.76-1.48.02-2.85.86-3.61 2.19-1.54 2.67-.39 6.62 1.11 8.79.73 1.06 1.61 2.25 2.75 2.21 1.1-.04 1.52-.71 2.85-.71 1.33 0 1.71.71 2.88.69 1.19-.02 1.94-1.08 2.67-2.14.84-1.23 1.19-2.42 1.21-2.48-.03-.01-2.32-.89-2.33-3.55zM14.18 6.13c.61-.74 1.02-1.76.91-2.78-.88.04-1.94.59-2.57 1.32-.56.65-1.06 1.69-.93 2.69.98.08 1.98-.5 2.59-1.23z"/></svg>
-            <span><small>Coming soon to the</small><b>App Store</b></span>
-          </span>
+          <a class="badge" href="https://apps.apple.com/app/id6775670840" aria-label="Download Glinto on the App Store"><img src="https://toolbox.marketingtools.apple.com/api/v2/badges/download-on-the-app-store/white/en-us" alt="Download on the App Store" width="156" height="52"></a>
           <ul class="facts"><li>Free</li><li>No ads</li><li>No account needed</li></ul>
         </div>
       </div>
@@ -323,12 +319,9 @@
   <section class="closing">
     <div class="wrap reveal">
       <h2>Know what's in the binder.</h2>
-      <p>Glinto is coming to the App Store for iPhone. Questions or ideas until then: <a href="mailto:glinto.support@gmail.com">glinto.support@gmail.com</a></p>
+      <p>Glinto is free on the App Store for iPhone. Questions or ideas: <a href="mailto:glinto.support@gmail.com">glinto.support@gmail.com</a></p>
       <div class="cta">
-        <span class="store" role="note" aria-label="Coming soon to the App Store">
-          <svg viewBox="0 0 24 24" aria-hidden="true" fill="currentColor"><path d="M16.37 12.6c-.02-2.2 1.8-3.26 1.88-3.31-1.03-1.5-2.62-1.71-3.19-1.73-1.36-.14-2.65.8-3.34.8-.69 0-1.75-.78-2.88-.76-1.48.02-2.85.86-3.61 2.19-1.54 2.67-.39 6.62 1.11 8.79.73 1.06 1.61 2.25 2.75 2.21 1.1-.04 1.52-.71 2.85-.71 1.33 0 1.71.71 2.88.69 1.19-.02 1.94-1.08 2.67-2.14.84-1.23 1.19-2.42 1.21-2.48-.03-.01-2.32-.89-2.33-3.55zM14.18 6.13c.61-.74 1.02-1.76.91-2.78-.88.04-1.94.59-2.57 1.32-.56.65-1.06 1.69-.93 2.69.98.08 1.98-.5 2.59-1.23z"/></svg>
-          <span><small>Coming soon to the</small><b>App Store</b></span>
-        </span>
+        <a class="badge" href="https://apps.apple.com/app/id6775670840" aria-label="Download Glinto on the App Store"><img src="https://toolbox.marketingtools.apple.com/api/v2/badges/download-on-the-app-store/white/en-us" alt="Download on the App Store" width="156" height="52"></a>
       </div>
     </div>
   </section>
